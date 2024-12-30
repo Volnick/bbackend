@@ -1,0 +1,9 @@
+asgiref==3.8.1
+Django==5.1.2
+django-cors-headers==4.6.0
+mysql==0.0.3
+mysql-connector-python==9.0.0
+mysqlclient==2.2.4
+python-dotenv==1.0.1
+sqlparse==0.5.1
+typing_extensions==4.12.2
