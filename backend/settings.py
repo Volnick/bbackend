@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,9 +38,26 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
+    'djoser',
     'barbershop',
-    'corsheaders'
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+}
+
+DJOSER = {
+    "SERIALIZERS": {
+        "user": "barbershop.serializers.CustomUserSerializer",
+        "current_user": "barbershop.serializers.CustomUserSerializer",
+    },
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -86,19 +103,28 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
+    #'default': {
+    #    'ENGINE': 'django.db.backends.mysql',
+    #    'NAME': 'testdb',
+    #    'USER': 'admin',
+    #    'PASSWORD': 'fussball',
+    #    'HOST': 'barbershopdb.ctummucccrjf.eu-north-1.rds.amazonaws.com',
+    #    'PORT': '3306',
+    #    'OPTIONS': {
+    #        'charset': 'utf8mb4',
+    #        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+    #        'auth_plugin': 'caching_sha2_password',
+    #    }
+
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'testdb',
-        'USER': 'admin',
-        'PASSWORD': 'fussball',
-        'HOST': 'barbershopdb.ctummucccrjf.eu-north-1.rds.amazonaws.com',
-        'PORT': '3306',
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            'auth_plugin': 'caching_sha2_password',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Alternativ: django.db.backends.sqlite3 für SQLite
+            'NAME': 'AppointmentSchedulerDB',
+            'USER': 'postgres',
+            'PASSWORD': 'fussball123',
+            'HOST': '127.0.0.1',  # Lokale Datenbank
+            'PORT': '5432',
         }
-    }
+    #}
 }
 
 # Password validation
@@ -135,7 +161,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "/static/"
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
