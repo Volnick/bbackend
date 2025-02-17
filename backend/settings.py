@@ -103,27 +103,28 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    #'default': {
-    #    'ENGINE': 'django.db.backends.mysql',
-    #    'NAME': 'testdb',
-    #    'USER': 'admin',
-    #    'PASSWORD': 'fussball',
-    #    'HOST': 'barbershopdb.ctummucccrjf.eu-north-1.rds.amazonaws.com',
-    #    'PORT': '3306',
-    #    'OPTIONS': {
-    #        'charset': 'utf8mb4',
-    #        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-    #        'auth_plugin': 'caching_sha2_password',
-    #    }
-
     'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Alternativ: django.db.backends.sqlite3 für SQLite
-            'NAME': 'AppointmentSchedulerDB',
-            'USER': 'postgres',
-            'PASSWORD': 'fussball123',
-            'HOST': '127.0.0.1',  # Lokale Datenbank
-            'PORT': '5432',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'testdb',
+        'USER': 'admin',
+        'PASSWORD': 'fussball',
+        'HOST': 'barbershopdb.ctummucccrjf.eu-north-1.rds.amazonaws.com',
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'auth_plugin': 'caching_sha2_password',
         }
+    }
+
+    #'default': {
+    #        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Alternativ: django.db.backends.sqlite3 für SQLite
+    #        'NAME': 'AppointmentSchedulerDB',
+    #        'USER': 'postgres',
+    #        'PASSWORD': 'fussball123',
+    #        'HOST': '127.0.0.1',  # Lokale Datenbank
+    #        'PORT': '5432',
+    #    }
     #}
 }
 
@@ -169,3 +170,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+ 
+
+#PayPal
+
+PAYPAL_CLIENT_ID = "AWq4JhpYhb9ApSGMo--83FYIE0xzcb9zeo2enjDzCeOfgxsSV1kgRja7PT-6JDmmw3IMxvMVmsSYw7d0"
+PAYPAL_SECRET = "EEYOfIcNY34GRT0xH0E8wTBSHm70y6kOFLILTMLXcjJZG12lZyNNKZ_00959DDUD-MRJ8aGDAYNwnh9W"

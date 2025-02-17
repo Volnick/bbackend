@@ -8,6 +8,10 @@ class Appointment(models.Model):
     is_booked = models.BooleanField(default=False)
     customer_name = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="appointments", null=True, blank=True)
+    is_paid = models.BooleanField(default=False) #Zahlung erfolgt?
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    payment_method = models.CharField(max_length=50, null=True, blank=True)
+    transaction_id = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return f"Appointment from {self.start_time} to {self.end_time} - Booked by {self.user.username if self.user else 'Guest'}"
