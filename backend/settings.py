@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-_of8qmkvv7r*zz(e5lgwcw&f54^p0z^r7z3%mjbhe^l6kma7h3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 # Application definition
 
@@ -103,29 +103,29 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'testdb',
-        'USER': 'admin',
-        'PASSWORD': 'fussball',
-        'HOST': 'barbershopdb.ctummucccrjf.eu-north-1.rds.amazonaws.com',
-        'PORT': '3306',
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            'auth_plugin': 'caching_sha2_password',
-        }
-    }
-
-    #'default': {
-    #        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Alternativ: django.db.backends.sqlite3 für SQLite
-    #        'NAME': 'AppointmentSchedulerDB',
-    #        'USER': 'postgres',
-    #        'PASSWORD': 'fussball123',
-    #        'HOST': '127.0.0.1',  # Lokale Datenbank
-    #        'PORT': '5432',
+   # 'default': {
+   #    'ENGINE': 'django.db.backends.mysql',
+   #    'NAME': 'testdb',
+   #    'USER': 'admin',
+    #    'PASSWORD': 'fussball',
+    #   'HOST': 'barbershopdb.ctummucccrjf.eu-north-1.rds.amazonaws.com',
+    #    'PORT': '3306',
+    #    'OPTIONS': {
+    #        'charset': 'utf8mb4',
+    #        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+    #        'auth_plugin': 'caching_sha2_password',
     #    }
     #}
+
+    'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Alternativ: django.db.backends.sqlite3 für SQLite
+            'NAME': 'AppointmentSchedulerDB',
+            'USER': 'postgres',
+            'PASSWORD': 'fussball123',
+            'HOST': '127.0.0.1',  # Lokale Datenbank
+            'PORT': '5432',
+        }
+    
 }
 
 # Password validation
