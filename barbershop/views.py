@@ -34,6 +34,7 @@ def book_appointment(request):
             price = data.get('price', 0.0)
             transaction_id = data.get('transaction_id', None)  # Kann None sein
             payment_method = data.get('payment_method', 'Unbekannt')  # Falls nicht gesetzt, 'Unbekannt'
+            services = data.get('services', [])
 
             print("📌 Empfangene Daten:", data)  # Debugging: Zeigt die erhaltenen Daten an
 
@@ -50,7 +51,8 @@ def book_appointment(request):
                 is_paid=is_paid,
                 price=price,
                 transaction_id=transaction_id,
-                payment_method=payment_method
+                payment_method=payment_method,
+                services = services
             )
 
             return JsonResponse({
@@ -62,7 +64,8 @@ def book_appointment(request):
                 'is_paid': appointment.is_paid,
                 'price': appointment.price,
                 'transaction_id': appointment.transaction_id,
-                'payment_method': appointment.payment_method
+                'payment_method': appointment.payment_method,
+                'services': appointment.services
             }, status=200)
 
         except Exception as e:
@@ -72,7 +75,16 @@ def book_appointment(request):
 @permission_classes([IsAuthenticated])
 def get_appointments(request):
     appointments = Appointment.objects.filter(is_booked=True).order_by('start_time')
-    data = [{"id": a.id, "customer_name": a.customer_name, "start_time": a.start_time} for a in appointments]
+    data = [{
+                "id": a.id,
+                "customer_name": a.customer_name,
+                "start_time": a.start_time,
+                "end_time": a.end_time,
+                "is_paid": a.is_paid,
+                "price": a.price,
+                "services": a.services  # ✅ hier auch
+            } 
+            for a in appointments]
     return JsonResponse({"appointments": data})
 
 @api_view(['GET'])

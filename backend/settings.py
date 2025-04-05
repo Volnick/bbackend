@@ -117,14 +117,20 @@ DATABASES = {
     #    }
     #}
 
+    #'default': {
+    #        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Alternativ: django.db.backends.sqlite3 für SQLite
+    #        'NAME': 'AppointmentSchedulerDB',
+    #        'USER': 'postgres',
+    #        'PASSWORD': 'fussball123',
+    #        'HOST': '127.0.0.1',  # Lokale Datenbank
+    #        'PORT': '5432',
+    #    }
+
     'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Alternativ: django.db.backends.sqlite3 für SQLite
-            'NAME': 'AppointmentSchedulerDB',
-            'USER': 'postgres',
-            'PASSWORD': 'fussball123',
-            'HOST': '127.0.0.1',  # Lokale Datenbank
-            'PORT': '5432',
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+
     
 }
 
@@ -150,13 +156,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
+LANGUAGE_CODE = 'de-de'
 USE_TZ = True
+TIME_ZONE = 'Europe/Berlin'
+
+#USE_I18N = True
 
 
 # Static files (CSS, JavaScript, Images)

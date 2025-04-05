@@ -10,6 +10,7 @@ class Appointment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="appointments", null=True, blank=True)
     is_paid = models.BooleanField(default=False) #Zahlung erfolgt?
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    services = models.JSONField(default=list) 
     payment_method = models.CharField(max_length=50, null=True, blank=True)
     transaction_id = models.CharField(max_length=100, null=True, blank=True)
 
