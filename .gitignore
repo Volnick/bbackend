@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django specific
+*.log
+*.pot
+*.pyc
+db.sqlite3
+
+# VSCode (falls du es nutzt)
+.vscode/
+
+# macOS
+.DS_Store
+
+# Linux
+*~
+
+# Build artifacts
+/staticfiles/

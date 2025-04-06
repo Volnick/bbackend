@@ -13,21 +13,22 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
+from dotenv import load_dotenv
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-PASSWORD = "fussball123"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_of8qmkvv7r*zz(e5lgwcw&f54^p0z^r7z3%mjbhe^l6kma7h3'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["salongstudio.de", "www.salongstudio.de", "85.215.181.153"]
 
 # Application definition
 
@@ -71,11 +72,9 @@ MIDDLEWARE = [
 ]
 
 # Für alle Origins (nicht empfohlen für Produktion)
-CORS_ALLOW_ALL_ORIGINS = True
-
-# Oder spezifisch für localhost:5173
+CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Vue.js Development Server
+    "https://salongstudio.de",
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -103,33 +102,21 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-   # 'default': {
-   #    'ENGINE': 'django.db.backends.mysql',
-   #    'NAME': 'testdb',
-   #    'USER': 'admin',
-    #    'PASSWORD': 'fussball',
-    #   'HOST': 'barbershopdb.ctummucccrjf.eu-north-1.rds.amazonaws.com',
-    #    'PORT': '3306',
-    #    'OPTIONS': {
-    #        'charset': 'utf8mb4',
-    #        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-    #        'auth_plugin': 'caching_sha2_password',
-    #    }
-    #}
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+
+
 
     #'default': {
-    #        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Alternativ: django.db.backends.sqlite3 für SQLite
-    #        'NAME': 'AppointmentSchedulerDB',
-    #        'USER': 'postgres',
-    #        'PASSWORD': 'fussball123',
-    #        'HOST': '127.0.0.1',  # Lokale Datenbank
-    #        'PORT': '5432',
-    #    }
-
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    #    'ENGINE': 'django.db.backends.sqlite3',
+    #    'NAME': BASE_DIR / 'db.sqlite3',
+    #}
 
     
 }
@@ -167,7 +154,6 @@ TIME_ZONE = 'Europe/Berlin'
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "/static/"
-
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Default primary key field type
@@ -177,6 +163,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
  
 
 #PayPal
-
-PAYPAL_CLIENT_ID = "AWq4JhpYhb9ApSGMo--83FYIE0xzcb9zeo2enjDzCeOfgxsSV1kgRja7PT-6JDmmw3IMxvMVmsSYw7d0"
-PAYPAL_SECRET = "EEYOfIcNY34GRT0xH0E8wTBSHm70y6kOFLILTMLXcjJZG12lZyNNKZ_00959DDUD-MRJ8aGDAYNwnh9W"
+PAYPAL_CLIENT_ID = os.getenv("PAYPAL_CLIENT_ID")
+PAYPAL_SECRET = os.getenv("PAYPAL_SECRET")
