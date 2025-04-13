@@ -26,10 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["salongstudio.de", "www.salongstudio.de", "85.215.181.153"]
-
+#ALLOWED_HOSTS = ["salongstudio.de", "www.salongstudio.de", "85.215.181.153"]
+ALLOWED_HOSTS = ["http://localhost:5173/", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'djoser',
-    'barbershop',
+    'barbershop'
 ]
 
 REST_FRAMEWORK = {
@@ -53,9 +53,19 @@ REST_FRAMEWORK = {
 }
 
 DJOSER = {
+    "LOGIN_FIELD": "email",  # E-Mail statt Username
+    "USER_CREATE_PASSWORD_RETYPE": False,
+    "USER_ACTIVATION": True,
+    "SEND_ACTIVATION_EMAIL": True,
+    "ACTIVATION_URL": "activate/{uid}/{token}/",
+    "EMAIL": {
+        "activation": "barbershop.emails.CustomActivationEmail"
+    },
     "SERIALIZERS": {
         "user": "barbershop.serializers.CustomUserSerializer",
         "current_user": "barbershop.serializers.CustomUserSerializer",
+        "USER_CREATE_SERIALIZER": "users.serializers.UserCreateSerializer",
+        "USER_SERIALIZER": "users.serializers.UserSerializer",
     },
 }
 
@@ -72,17 +82,17 @@ MIDDLEWARE = [
 ]
 
 # Für alle Origins (nicht empfohlen für Produktion)
-CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = [
-    "https://salongstudio.de",
-]
+CORS_ALLOW_ALL_ORIGINS = True
+#CORS_ALLOWED_ORIGINS = [
+#    "https://salongstudio.de",
+#]
 
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "barbershop" / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -102,21 +112,21 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-
-
-
     #'default': {
-    #    'ENGINE': 'django.db.backends.sqlite3',
-    #    'NAME': BASE_DIR / 'db.sqlite3',
+    #    'ENGINE': 'django.db.backends.postgresql',
+    #    'NAME': os.getenv('DB_NAME'),
+    #    'USER': os.getenv('DB_USER'),
+    #    'PASSWORD': os.getenv('DB_PASSWORD'),
+    #    'HOST': '127.0.0.1',
+    #    'PORT': '5432',
     #}
+
+
+
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 
     
 }
@@ -165,3 +175,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #PayPal
 PAYPAL_CLIENT_ID = os.getenv("PAYPAL_CLIENT_ID")
 PAYPAL_SECRET = os.getenv("PAYPAL_SECRET")
+
+AUTH_USER_MODEL = 'barbershop.CustomUser'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'noreply@salongstudio.de'
+
+'''
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.ionos.de'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'noreply@salongstudio.de'
+EMAIL_HOST_PASSWORD = 'YUr)GY=TV#&R5ENn'
+DEFAULT_FROM_EMAIL = 'noreply@salongstudio.de'
+'''

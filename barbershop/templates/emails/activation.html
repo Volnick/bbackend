@@ -1,0 +1,17 @@
+{% block subject %}
+Aktiviere dein Konto bei SaLong Studios
+{% endblock %}
+
+{% block html_body %}
+<p>Hallo {{ user.first_name }},</p>
+
+<p>Bitte aktiviere dein Konto mit folgendem Link:</p>
+
+<p>
+  <a href="{{ protocol }}://{{ domain }}/activate/{{ uid }}/{{ token }}/">
+    Konto aktivieren
+  </a>
+</p>
+
+<p>Danke, <br> Dein SaLong Studio Team</p>
+{% endblock %}
